@@ -14,8 +14,53 @@
 
 <script>
 import { ref,computed,watch,getCurrentInstance } from 'vue'
+// vue 生命周期函数
+import {onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onUnmounted,
+  onErrorCaptured,
+  onRenderTracked,
+  onRenderTriggered,} from "vue"
  export default {
-   setup(){
+   props:{
+     msg:{
+       type:String,
+       default:''
+     }
+   },
+   setup(props,context){
+     console.log(`组件传递props${JSON.stringify(props)}`);
+      console.log(`组件的上下文对象${JSON.stringify(context)}`);
+     onRenderTracked(() => {
+      console.log("onRenderTracked");
+    });
+    onRenderTriggered(() => {
+      console.log('onRenderTriggered')
+    });
+    onBeforeMount(() => {
+      console.log("onBeforeMount");
+    });
+    onMounted(() => {
+      console.log("onMounted");
+    });
+    onBeforeUpdate(() => {
+      console.log("onBeforeUpdate");
+    });
+    onUpdated(() => {
+      console.log("onUpdated");
+    });
+    onBeforeUnmount(() => {
+      console.log("beforeDestroy");
+    });
+    onUnmounted(() => {
+      console.log("onUnmounted");
+    });
+    onErrorCaptured(() => {
+      console.log("onErrorCaptured");
+    });
 
       const { ctx } = getCurrentInstance()
       console.log(ctx.$router.currentRoute.value)
