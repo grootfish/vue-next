@@ -1,19 +1,6 @@
-<template>
-  <div class="test">
-    <h1>test count: {{ count }}</h1>
-    <div>count * 2 = {{ doubleCount }}</div>
-    <div>state from vuex {{ a }}</div>
-    <button @click="add">
-      add
-    </button>
-    <button @click="update">
-      update a
-    </button>
-  </div>
-</template>
-
 <script>
 import { ref,computed,watch,getCurrentInstance } from 'vue'
+import CompUser from "@/components/user.vue"
 // vue 生命周期函数
 import {onBeforeMount,
   onMounted,
@@ -25,15 +12,17 @@ import {onBeforeMount,
   onRenderTracked,
   onRenderTriggered,} from "vue"
  export default {
+   components:{
+     CompUser
+   },
    props:{
      msg:{
        type:String,
        default:''
      }
    },
-   setup(props,context){
-     console.log(`组件传递props${JSON.stringify(props)}`);
-      console.log(`组件的上下文对象${JSON.stringify(context)}`);
+   setup(){
+
      onRenderTracked(() => {
       console.log("onRenderTracked");
     });
@@ -101,6 +90,23 @@ import {onBeforeMount,
    }
  }
 </script>
+<template>
+  <div class="test">
+    <h1>test count: {{ count }}</h1>
+    <div>count * 2 = {{ doubleCount }}</div>
+    <div>state from vuex {{ a }}</div>
+
+    <comp-user :user-name="'用户名'" />
+    <button @click="add">
+      add
+    </button>
+    <button @click="update">
+      update a
+    </button>
+  </div>
+</template>
+
+
 
 <style lang="less" scoped>
 .test {
