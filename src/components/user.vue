@@ -1,5 +1,6 @@
 <script>
 import {reactive,ref,isRef,isReactive,toRefs,computed,watch,watchEffect } from 'vue'
+import { inject } from 'vue'
 export default {
   props:{
     userName:{
@@ -11,6 +12,14 @@ export default {
     console.log('组件入口测试')
     console.log(`组件传递props${props.userName}`);
     console.log(`组件的上下文对象${JSON.stringify(context)}`);
+
+     const getName=()=>{
+            return "我是测试数据"
+        }
+
+
+    //A组件获取父组件传递过来的头像数据
+    const pic = inject('pic')
     // reactive api
     let userInfo=reactive({userName:"小姐姐"});
     const setName = ()=>{
@@ -87,13 +96,20 @@ export default {
       setCity,
       age,
       ageMsg,
-      stop
+      stop,
+      pic,
+      getName
     }
   }
 }
 </script>
 <template>
   <section>
+    <div>孙子组件</div>
+    <img
+      style="width:50px;height:50px"
+      :src="pic"
+    >
     请输入地址:<input
       v-model="city"
       type="text"
