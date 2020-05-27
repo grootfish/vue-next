@@ -105,11 +105,14 @@ export default {
 </script>
 <template>
   <section>
-    <div>孙子组件</div>
-    <img
-      style="width:50px;height:50px"
-      :src="pic"
-    >
+    <section>
+      <div>孙子组件</div>
+      <img
+        style="width:50px;height:50px"
+        :src="pic"
+      >
+    </section>
+
     请输入地址:<input
       v-model="city"
       type="text"
