@@ -1,25 +1,7 @@
 <script>
-import {onMounted,provide,ref,customRef,markRaw,reactive} from "vue";
+import {onMounted,provide,ref,markRaw,reactive} from "vue";
 import CompUser from "@/components/user.vue"
-//只需要返回一个响应Ref对象，可自定义其get set
-const useDebounce=(value='', delay = 2000)=>{//10000秒之后才会更新text的值
-  return customRef((track, trigger) => {
-    let timeout
-    return {
-      get() {
-        track()//必须调用次函数才会触发更新
-        return value
-      },
-      set(newValue) {
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {
-          value = newValue
-          trigger()//必须调用次函数才会触发更新
-        }, delay)
-      }
-    }
- })
-}
+import {useDebounce,useResize} from '@/hooks'
 
 export default {
   components:{
@@ -55,8 +37,12 @@ export default {
     console.log(bar)
     console.log(foo)
 
+    const {width,height} = useResize()
+
 
     return {
+      width,
+      height,
       comRef,
       text:useDebounce()
     }
@@ -66,6 +52,8 @@ export default {
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    屏幕width:{{ width }}
+    屏幕height:{{ height }}
     <comp-user
       ref="comRef"
       :user-name="'用户名'"
